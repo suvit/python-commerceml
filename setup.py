@@ -29,7 +29,8 @@ setup(
     packages=find_packages(exclude=['docs', 'examples', 'tests']),
     #install_requires='lxml',
     extras_require = {
-        'django': ["django"],
+        'django': ['django',
+                   'django-appconf'],
     }
     include_package_data=True,
 )

@@ -1,11 +1,8 @@
 
+from django.conf import settings
 from django.http import HttpResponse
 
-COOKIE_NAME = 'python-cml'
-COOKIE_VALUE = 'python-cml'
-USE_ZIP = True
-FILE_LIMIT = 100000
-
+from commerceml.contrib.django.conf import CmlConf
 
 def dispatcher(request):
     type = request.GET.get('type')
@@ -19,13 +16,16 @@ def dispatcher(request):
 
 
 def catalog_checkout(request):
-    return HttpResponse('success\n%s\n%s' % (COOKIE_NAME,
-                                             COOKIE_VALUE))
+    session = request.session
+    return HttpResponse('success\n%s\n%s' % (settings.SESSION_COOKIE_NAME,
+                                             session.session_key))
 
 
 def catalog_init(request):
-    return HttpResponse('zip=%s\nfile_limit=%s' % ('yes' if USE_ZIP else 'no',
-                                                   FILE_LIMIT))
+    result = 'zip=%s\n'
+             'file_limit=%s' % ('yes' if CmlConf.USE_ZIP else 'no',
+                                CmlConf.FILE_LIMIT)
+    return HttpResponse(result)
 
 
 def catalog_file(request):
