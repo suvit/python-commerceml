@@ -68,5 +68,7 @@ def sale_success(request):
     # log success
     return HttpResponse('success')
 
+def update_orders(file):
+    pass
 
 sale_file = catalog_file
