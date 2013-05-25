@@ -32,7 +32,6 @@ def import_orders(filename):
             elif prop_title == u'ПометкаУдаления':
                 udalen = prop.find(u'Значение').text() == 'true'
 
-
         if udalen:
             order.status = state.DELETED
         elif proveden:
@@ -145,7 +144,7 @@ def export_orders(last_update=None):
             SubElement(xml_product, u'Cумма').text = price * orderitem.product_amount
 
             xml_discounts = SubElement(xml_product, u'Скидки')
-            xml_discount = SubElement(xml_discounts, u'Скидки')
+            xml_discount = SubElement(xml_discounts, u'Скидка')
 
             SubElement(xml_discount, u'Cумма').text = order.discount_price
             SubElement(xml_discount, u'УчтеноВСумме').text = "true"
