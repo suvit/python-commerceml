@@ -11,7 +11,7 @@ from commerceml import VERSION
 
 
 setup(
-    name='django-tecdoc',
+    name='python-commerceml',
     version=VERSION,
 
     description='Itegration between python frameworks and 1c',
@@ -31,6 +31,6 @@ setup(
     extras_require = {
         'django': ['django',
                    'django-appconf'],
-    }
+    },
     include_package_data=True,
 )
