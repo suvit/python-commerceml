@@ -89,28 +89,19 @@ def export_orders(last_update=None):
     for order in orders:
         xml_order = SubElement(root, u'Документ')
 
-        child = SubElement(xml_order, u'Ид')
-        child.text = str(order.id)
-        child = SubElement(xml_order, u'Номер')
-        child.text = str(order.id)
+        SubElement(xml_order, u'Ид').text = str(order.id)
+        SubElement(xml_order, u'Номер').text = str(order.number)
 
-        child = SubElement(xml_order, u'Дата')
-        child.text = str(order.created)
-        child = SubElement(xml_order, u'Время')
-        child.text = str(order.created)
+        SubElement(xml_order, u'Дата').text = str(order.created.date())
+        SubElement(xml_order, u'Время').text = str(order.created.time())
 
-        child = SubElement(xml_order, u'ХозОперация')
-        child.text = u'Заказ товара'
-        child = SubElement(xml_order, u'Роль')
-        child.text = u'Продавец'
+        SubElement(xml_order, u'ХозОперация').text = u'Заказ товара'
+        SubElement(xml_order, u'Роль').text = u'Продавец'
 
-        child = SubElement(xml_order, u'Курс')
-        child.text = '1'
-        child = SubElement(xml_order, u'Сумма')
-        child.text = order.price
+        SubElement(xml_order, u'Курс').text = '1'
+        SubElement(xml_order, u'Сумма').text = order.price
 
-        child = SubElement(xml_order, u'Комментарий')
-        child.text = order.comment
+        SubElement(xml_order, u'Комментарий').text = order.comment
 
         contragents = SubElement(xml_order, u'Контрагенты')
         сustomer = SubElement(contragents, u'Контрагент')
