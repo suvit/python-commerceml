@@ -7,14 +7,13 @@ from xml.etree import ElementTree
 from django.conf import settings
 from django.http import HttpResponse
 
+from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
 from commerceml.utils import (import_orders, export_orders,
                               import_catalog)
+
 from commerceml.contrib.django.cml.conf import CmlConf
 
 logger = logging.getLogger(__name__)
-
-SUCCESS = 'success'
-ERROR = 'failure'
 
 
 def dispatcher(request):
@@ -23,7 +22,7 @@ def dispatcher(request):
     try:
         view = globals()['%s_%s' % (type, mode)]
     except KeyError:
-        return HttpResponse(ERROR)
+        return HttpResponse(RESPONSE_ERROR)
 
     logger.debug('dispatch to %s' % view)
     return view(request)
@@ -31,7 +30,7 @@ def dispatcher(request):
 
 def catalog_checkout(request):
     session = request.session
-    return HttpResponse('%s\n%s\n%s' % (SUCCESS,
+    return HttpResponse('%s\n%s\n%s' % (RESPONSE_SUCCESS,
                                         settings.SESSION_COOKIE_NAME,
                                         session.session_key))
 
@@ -51,18 +50,18 @@ def handle_uploaded_file(f, name=None):
         for chunk in f.chunks():
             destination.write(chunk)
 
-    return destination
+    return destination.name
 
 def import_file(request, callback=None):
     if request.method != 'POST':
-        return HttpResponse(ERROR)
+        return HttpResponse(RESPONSE_ERROR)
 
     try:
         filename = request.GET['filename']
     except KeyError:
         if settings.DEBUG:
             raise
-        return HttpResponse(ERROR)
+        return HttpResponse(RESPONSE_ERROR)
 
     try:
         file = request.FILES[filename]
@@ -70,7 +69,7 @@ def import_file(request, callback=None):
         if settings.DEBUG:
             raise
 
-        return HttpResponse(ERROR)
+        return HttpResponse(RESPONSE_ERROR)
 
     dest = handle_uploaded_file(file, filename)
 
@@ -91,7 +90,7 @@ def catalog_import(request):
     except KeyError:
         if settings.DEBUG:
             raise
-        return HttpResponse(ERROR)
+        return HttpResponse(RESPONSE_ERROR)
 
     return import_catalog(filename)
 
@@ -107,7 +106,7 @@ def sale_query(request):
 
 def sale_success(request):
     # log success
-    return HttpResponse(SUCCESS)
+    return HttpResponse(RESPONSE_SUCCESS)
 
 
 def sale_file(request):
