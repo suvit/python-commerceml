@@ -3,6 +3,20 @@ python-commerceml
 
 Обмен между 1с и сайтом
 
+Установка
+-------------
+
+``pip install python-commerceml``
+
+* django
+
+    добавить приложение ``commerceml.contrib.django.cml`` в INSTALLED_APPS
+
+    добавить пути в общий urls
+
+        (r'^1c/', include('commerceml.contrib.django.urls')),
+
+
 TODO
 -----------------
 
