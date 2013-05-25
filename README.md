@@ -26,3 +26,4 @@ TODO
 * django. USE_ZIP == True
 * django. импорт каталога
 * django. basic auth
+* django. lfs. api

@@ -14,7 +14,7 @@ setup(
     name='python-commerceml',
     version=VERSION,
 
-    description='Itegration between python frameworks and 1c',
+    description='Itegration between python ecommerce frameworks and 1c',
     long_description=file(
         os.path.join(
             os.path.dirname(__file__),
@@ -27,7 +27,7 @@ setup(
     url='http://github.com/suvit/python-commerceml',
     zip_safe=False,
     packages=find_packages(exclude=['docs', 'examples', 'tests']),
-    #install_requires='lxml',
+    #install_requires=['lxml', 'elementflow'],
     extras_require = {
         'django': ['django',
                    'django-appconf'],

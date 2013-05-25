@@ -7,6 +7,10 @@ class Order(object):
     id = None
 
 
+class OrderItem(object):
+    id = None
+
+
 class Category(object):
     pass
 

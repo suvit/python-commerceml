@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -
 from datetime import datetime
 from decimal import Decimal
-from xml.etree import ElementTree, Element, SubElement
+from xml.etree.ElementTree import ElementTree, Element, SubElement
 
-from commerceml.objects import Order
+from commerceml.object import Order, OrderItem
 
-def import_product(filename):
+def import_catalog(filename):
     pass  # TODO
 
 
@@ -50,7 +50,7 @@ def import_orders(filename):
 
             product_1c_id = xml_product.find(u'Ид').text()
 
-            product = Product.objects.get(1c__id=product_1c_id)
+            product = Product.objects.get(external_id=product_1c_id)
 
             orderitem.order = order
             orderitem.product = product
@@ -103,7 +103,7 @@ def export_orders(last_update=None):
         SubElement(xml_order, u'Комментарий').text = order.comment
 
         contragents = SubElement(xml_order, u'Контрагенты')
-        сustomer = SubElement(contragents, u'Контрагент')
+        customer = SubElement(contragents, u'Контрагент')
         SubElement(customer, u'Ид').text = order.get_customer().id
         SubElement(customer, u'Наименование').text = order.name
         SubElement(customer, u'ПолноеНаименование').text = order.fullname
@@ -130,12 +130,12 @@ def export_orders(last_update=None):
         for orderitem in order.items():
             product = orderitem.product
             try:
-                1c_product_id = product.1c.external_id
+                external_id = product.external_id
             except AttributeError:
-                1c_product_id = orderitem.product_id
+                external_id = orderitem.product_id
 
             xml_product = SubElement(xml_orderitems, u'Товар')
-            SubElement(xml_product, u'Ид').text = 1с_product_id
+            SubElement(xml_product, u'Ид').text = external_id
             SubElement(xml_product, u'Артикул').text = product.sku
             SubElement(xml_product, u'Наименование').text = orderitem.product_name
             price = orderitem.get_price_with_discount()
@@ -193,17 +193,17 @@ def export_orders(last_update=None):
             SubElement(xml_prop, u'Наименование').text = u'ТипНоменклатуры'
             SubElement(xml_prop, u'Значение').text = u'Услуга'
 
-         xml_props = SubElement(xml_order, u'ЗначенияРеквизитов')
-         xml_prop = SubElement(xml_props, u'ЗначениеРеквизита')
-         if order.state == 1:
-             SubElement(xml_prop, u'Наименование').text = u'Статус заказа'
-             SubElement(xml_prop, u'Значение').text = u'[N] Принят'
-         elif order.state == 2:
-             SubElement(xml_prop, u'Наименование').text = u'Статус заказа'
-             SubElement(xml_prop, u'Значение').text = u'[F] Доставлен'
-         elif order.state == 3:
-             SubElement(xml_prop, u'Наименование').text = u'Отменен'
-             SubElement(xml_prop, u'Значение').text = u'true'
+        xml_props = SubElement(xml_order, u'ЗначенияРеквизитов')
+        xml_prop = SubElement(xml_props, u'ЗначениеРеквизита')
+        if order.state == 1:
+            SubElement(xml_prop, u'Наименование').text = u'Статус заказа'
+            SubElement(xml_prop, u'Значение').text = u'[N] Принят'
+        elif order.state == 2:
+            SubElement(xml_prop, u'Наименование').text = u'Статус заказа'
+            SubElement(xml_prop, u'Значение').text = u'[F] Доставлен'
+        elif order.state == 3:
+            SubElement(xml_prop, u'Наименование').text = u'Отменен'
+            SubElement(xml_prop, u'Значение').text = u'true'
 
     # Needed BOM ?
     return ('<?xml version="1.0" encoding="utf-8"?>\n'
