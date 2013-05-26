@@ -6,3 +6,4 @@ class CmlConf(AppConf):
     USE_ZIP = False
     FILE_LIMIT = 1000000
     FILE_ROOT = os.path.join('files', 'cml')
+    MAX_EXEC_TIME = 60

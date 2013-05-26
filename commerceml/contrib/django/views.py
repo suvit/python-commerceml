@@ -8,8 +8,7 @@ from django.conf import settings
 from django.http import HttpResponse
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
-from commerceml.utils import (import_orders, export_orders,
-                              import_catalog)
+from commerceml.utils import Importer, export_orders
 
 from commerceml.contrib.django.cml.conf import CmlConf
 
@@ -92,7 +91,7 @@ def catalog_import(request):
             raise
         return HttpResponse(RESPONSE_ERROR)
 
-    return import_catalog(filename)
+    return Importer(filename, reqiest.session).import_catalog()
 
 # Sale views
 sale_checkout = catalog_checkout
@@ -110,4 +109,5 @@ def sale_success(request):
 
 
 def sale_file(request):
-    return import_file(request, callback=import_orders)
+    importer = Importer(filename, reqiest.session)
+    return import_file(request, callback=importer.import_orders)
