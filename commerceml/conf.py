@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -
 
 RESPONSE_SUCCESS = 'success'
+RESPONCE_PROGRESS = 'progress'
 RESPONSE_ERROR = 'failure'
 
 
