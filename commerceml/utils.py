@@ -115,7 +115,7 @@ class Importer(object):
 
         if product_status == u'Удален':
             shop_product.delete()
-            continue
+            return
 
         # TODO if several groups
         external_cat_id = xml_product.find(u'Группы/Ид').text
@@ -158,7 +158,7 @@ class Importer(object):
         for doc in tree.getroot().findall(u'Документ'):
             self.import_order(doc)
 
-    def import_order(self, doc)
+    def import_order(self, doc):
         order = Order()
         order.id = doc.find(u'Номер').text().strip()
 
