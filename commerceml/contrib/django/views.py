@@ -27,7 +27,7 @@ def dispatcher(request):
     return view(request)
 
 
-def catalog_checkout(request):
+def catalog_checkauth(request):
     session = request.session
     return HttpResponse('%s\n%s\n%s' % (RESPONSE_SUCCESS,
                                         settings.SESSION_COOKIE_NAME,
@@ -94,7 +94,7 @@ def catalog_import(request):
     return Importer(filename, reqiest.session).import_catalog()
 
 # Sale views
-sale_checkout = catalog_checkout
+sale_checkauth = catalog_checkauth
 sale_init = catalog_init
 
 
