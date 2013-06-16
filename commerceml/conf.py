@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -
+import os
 
 RESPONSE_SUCCESS = 'success'
 RESPONSE_PROGRESS = 'progress'
@@ -13,3 +14,9 @@ Category = 'path.to.category'
 Manufacturer = 'path.to.manufacturer'
 Image = 'path.to.image'
 Property = 'path.to.property'
+
+MAX_EXEC_TIME = 60
+USE_ZIP = False
+FILE_LIMIT = 1000000
+FILE_ROOT = os.path.join('files', 'cml')
+
