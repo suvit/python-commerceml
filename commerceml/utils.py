@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from xml.etree.ElementTree import ElementTree, Element, SubElement
 
-from commerceml.conf import MAX_EXEC_TIME, RESPONCE_SUCCESS, RESPONCE_PROGRESS
+from commerceml.conf import MAX_EXEC_TIME, RESPONSE_SUCCESS, RESPONSE_PROGRESS
 from commerceml.object import Order, OrderItem
 
 
@@ -34,7 +34,7 @@ class Importer(object):
                 if exec_time + 1 >= self.max_exec_time:
                     self.state['last_product'] = last_product + i + 1
                     return (u'%s\n'
-                            u'Выгружено товаров: %s\n' % (RESPONCE_PROGRESS,
+                            u'Выгружено товаров: %s\n' % (RESPONSE_PROGRESS,
                                                           i + 1))
 
             del self.state['last_product']
@@ -53,8 +53,8 @@ class Importer(object):
                     self.state['last_offer'] = last_offer + i + 1
                     return (u'%s\n'
                             u'Выгружено товарных предложений:'
-                            u' %s\n' % (RESPONCE_PROGRESS,
-                                        i + 1)
+                            u' %s\n' % (RESPONSE_PROGRESS,
+                                        i + 1))
 
             del self.state['last_offer']
             return SUCCESS
@@ -117,7 +117,7 @@ class Importer(object):
 
         if product_status == u'Удален':
             shop_product.delete()
-            continue
+            return
 
         # TODO if several groups
         external_cat_id = xml_product.find(u'Группы/Ид').text
@@ -160,7 +160,7 @@ class Importer(object):
         for doc in tree.getroot().findall(u'Документ'):
             self.import_order(doc)
 
-    def import_order(self, doc)
+    def import_order(self, doc):
         order = Order()
         order.id = doc.find(u'Номер').text().strip()
 
