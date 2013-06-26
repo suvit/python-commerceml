@@ -91,7 +91,7 @@ def catalog_import(request):
             raise
         return HttpResponse(RESPONSE_ERROR)
 
-    return Importer(filename, reqiest.session).import_catalog()
+    return Importer(filename, request.session).import_catalog()
 
 # Sale views
 sale_checkauth = catalog_checkauth
@@ -109,5 +109,5 @@ def sale_success(request):
 
 
 def sale_file(request):
-    importer = Importer(filename, reqiest.session)
+    importer = Importer(filename, request.session)
     return import_file(request, callback=importer.import_orders)

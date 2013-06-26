@@ -3,9 +3,8 @@ from datetime import datetime
 from decimal import Decimal
 from xml.etree.ElementTree import ElementTree, Element, SubElement
 
-from commerceml.conf import MAX_EXEC_TIME
+from commerceml.conf import MAX_EXEC_TIME, RESPONSE_SUCCESS, RESPONSE_PROGRESS
 from commerceml.object import Order, OrderItem
-
 
 
 class Importer(object):
@@ -34,8 +33,9 @@ class Importer(object):
                 exec_time = (datetime.now() - self.start_time).seconds
                 if exec_time + 1 >= self.max_exec_time:
                     self.state['last_product'] = last_product + i + 1
-                    return (u'progress\n'
-                            u'Выгружено товаров: %s\n' % i + 1)
+                    return (u'%s\n'
+                            u'Выгружено товаров: %s\n' % (RESPONSE_PROGRESS,
+                                                          i + 1))
 
             del self.state['last_product']
             return SUCCESS
@@ -51,8 +51,10 @@ class Importer(object):
                 exec_time = (datetime.now() - self.start_time).seconds
                 if exec_time + 1 >= self.max_exec_time:
                     self.state['last_offer'] = last_offer + i + 1
-                    return (u'progress\n'
-                            u'Выгружено товарных предложений: %s\n' % i + 1)
+                    return (u'%s\n'
+                            u'Выгружено товарных предложений:'
+                            u' %s\n' % (RESPONSE_PROGRESS,
+                                        i + 1))
 
             del self.state['last_offer']
             return SUCCESS
