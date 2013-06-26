@@ -278,7 +278,7 @@ def export_orders(last_update=None):
         SubElement(contact, u'Тип').text = u'Телефон'
         SubElement(contact, u'Значение').text = order.shipping_phone
         contact = SubElement(contacts, u'Контакт')
-        SubElement(contact, u'Тип').text = u'Телефон'
+        SubElement(contact, u'Тип').text = u'Почта'
         SubElement(contact, u'Значение').text = order.shipping_email
 
         xml_orderitems = SubElement(xml_order, u'Товары')
