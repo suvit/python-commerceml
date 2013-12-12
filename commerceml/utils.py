@@ -235,7 +235,7 @@ class Exporter(object):
     pass
 
 
-def export_orders(last_update=None):
+def export_orders(request, last_update=None):
     root = Element(u'КоммерческаяИнформация')
     root.set(u'ВерсияСхемы', '2.05')
     root.set(u'ДатаФормирования', datetime.now())

@@ -10,3 +10,6 @@ class CmlConf(AppConf):
     FILE_ROOT = default.FILE_ROOT
     MAX_EXEC_TIME = default.MAX_EXEC_TIME
 
+    EXPORT_FOLDER = os.path.join(FILE_ROOT, 'export')
+    IMPORT_FOLDER = os.path.join(FILE_ROOT, 'import')
+
