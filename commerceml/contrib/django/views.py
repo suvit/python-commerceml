@@ -26,7 +26,8 @@ def dispatcher(request):
     try:
         view = globals()['%s_%s' % (type, mode)]
     except KeyError:
-        return HttpResponse(RESPONSE_ERROR)
+        output = u'\n'.join([RESPONSE_ERROR, 'Unknown command type.'])
+        return HttpResponse(output)
 
     logger.debug('dispatch to %s' % view)
     return view(request)
@@ -34,7 +35,7 @@ def dispatcher(request):
 
 def catalog_checkauth(request):
     session = request.session
-    return HttpResponse('%s\n%s\n%s' % (RESPONSE_SUCCESS,
+    return HttpResponse('%s\n%s\n%s\n' % (RESPONSE_SUCCESS,
                                         settings.SESSION_COOKIE_NAME,
                                         session.session_key))
 
