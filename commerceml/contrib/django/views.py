@@ -69,6 +69,7 @@ def import_file(request, signal):
             raise
         return HttpResponse(RESPONSE_ERROR)
 
+    filename = os.path.basename(filename)
     file = SimpleUploadedFile(filename, request.read(),
                               content_type='text/xml')
 
@@ -98,6 +99,8 @@ def catalog_import(request):
         if settings.DEBUG:
             raise
         return HttpResponse(RESPONSE_ERROR)
+
+    filename = os.path.basename(filename)
 
     data = {'request': request,
             'filename': filename,
