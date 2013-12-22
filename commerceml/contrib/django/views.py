@@ -69,7 +69,7 @@ def import_file(request, signal):
             raise
         return HttpResponse(RESPONSE_ERROR)
 
-    file = SimpleUploadedFile(filename, request._stream,
+    file = SimpleUploadedFile(filename, request.read(),
                               content_type='text/xml')
 
     filepath = handle_uploaded_file(file, filename)
