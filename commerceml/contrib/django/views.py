@@ -74,7 +74,7 @@ def import_file(request):
 
     filepath = handle_uploaded_file(file, filename)
 
-    data = {'request', request,
+    data = {'request': request,
             'filename': filename,
             'file': file,
             'filepath': filepath}
