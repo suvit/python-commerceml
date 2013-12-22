@@ -84,7 +84,7 @@ def import_file(request, signal):
     if 'response' in data:
         return data['response']
     else:
-        return HttpResponse(RESPONSE_ERROR)
+        return HttpResponse(RESPONSE_SUCCESS)
 
 
 def catalog_file(request):
@@ -107,7 +107,7 @@ def catalog_import(request):
     if 'response' in data:
         return data['response']
     else:
-        return HttpResponse(RESPONSE_ERROR)
+        return HttpResponse(RESPONSE_SUCCESS)
 
 # Sale views
 sale_checkauth = catalog_checkauth
@@ -122,7 +122,7 @@ def sale_query(request):
     if 'response' in data:
         return data['response']
     else:
-        return HttpResponse(RESPONSE_ERROR)
+        return HttpResponse(RESPONSE_SUCCESS)
 
 
 def sale_success(request):
