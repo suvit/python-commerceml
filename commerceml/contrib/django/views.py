@@ -100,7 +100,8 @@ def catalog_import(request):
         return HttpResponse(RESPONSE_ERROR)
 
     data = {'request': request,
-            'filename': filename}
+            'filename': filename,
+            'filepath': os.path.join(CmlConf.IMPORT_FOLDER, filename)}
 
     requested_catalog_import.send(data)
 
