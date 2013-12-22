@@ -13,7 +13,7 @@ from commerceml.utils import Importer, export_orders
 def import_catalog_file(sender, **kwargs):
     request = sender['request']
 
-    sender['response'] = RESPONSE_SUCCESS
+    sender['response'] = HttpResponse(RESPONSE_SUCCESS)
 requested_catalog_file.connect(import_catalog_file)
 
 def import_catalog(sender, **kwargs):
