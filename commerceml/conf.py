@@ -4,7 +4,6 @@ import os
 RESPONSE_SUCCESS = 'success'
 RESPONSE_PROGRESS = 'progress'
 RESPONSE_ERROR = 'failure'
-MAX_EXEC_TIME = 60
 
 Shop = 'path.to.shop.api'
 Order = 'path.to.order'
@@ -17,6 +16,6 @@ Property = 'path.to.property'
 
 MAX_EXEC_TIME = 60
 USE_ZIP = False
-FILE_LIMIT = 1000000
+FILE_LIMIT = 0
 FILE_ROOT = os.path.join('files', 'cml')
 
