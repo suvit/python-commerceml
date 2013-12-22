@@ -5,7 +5,7 @@ import os
 from xml.etree import ElementTree
 
 from django.conf import settings
-from django.core.files.uploadedfiles import SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
