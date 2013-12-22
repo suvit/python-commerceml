@@ -5,6 +5,7 @@ import os
 from xml.etree import ElementTree
 
 from django.conf import settings
+from django.core.files.uploadedfiles import SimpleUploadedFile
 from django.http import HttpResponse
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
@@ -56,7 +57,8 @@ def handle_uploaded_file(f, name=None):
 
     return destination.name
 
-def import_file(request, callback=None):
+
+def import_file(request):
     if request.method != 'POST':
         return HttpResponse(RESPONSE_ERROR)
 
@@ -67,25 +69,26 @@ def import_file(request, callback=None):
             raise
         return HttpResponse(RESPONSE_ERROR)
 
-    try:
-        file = request.FILES[filename]
-    except KeyError:
-        if settings.DEBUG:
-            raise
+    file = SimpleUploadedFile(filename, request._stream,
+                              content_type='text/xml')
 
+    filepath = handle_uploaded_file(file, filename)
+
+    data = {'request', request,
+            'filename': filename,
+            'file': file,
+            'filepath': filepath}
+
+    signal.send(data)
+
+    if 'response' in data:
+        return data['response']
+    else:
         return HttpResponse(RESPONSE_ERROR)
-
-    dest = handle_uploaded_file(file, filename)
-
-    res = SUCCESS
-    if callback:
-         res = callback(dest)
-
-    return HttpResponse(res)
 
 
 def catalog_file(request):
-    return import_file(request)
+    return import_file(request, requested_catalog_file)
 
 
 def catalog_import(request):
@@ -98,6 +101,7 @@ def catalog_import(request):
 
     data = {'request': request,
             'filename': filename}
+
     requsted_catalog_import.send(data)
 
     if 'response' in data:
@@ -127,5 +131,4 @@ def sale_success(request):
 
 
 def sale_file(request):
-    importer = Importer(filename, request.session)
-    return import_file(request, callback=importer.import_orders)
+    return import_file(request, requested_sale_file)
