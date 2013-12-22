@@ -102,7 +102,7 @@ def catalog_import(request):
     data = {'request': request,
             'filename': filename}
 
-    requsted_catalog_import.send(data)
+    requested_catalog_import.send(data)
 
     if 'response' in data:
         return data['response']
