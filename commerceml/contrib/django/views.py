@@ -58,7 +58,7 @@ def handle_uploaded_file(f, name=None):
     return destination.name
 
 
-def import_file(request):
+def import_file(request, signal):
     if request.method != 'POST':
         return HttpResponse(RESPONSE_ERROR)
 
