@@ -30,7 +30,8 @@ setup(
     #install_requires=['lxml', 'elementflow'],
     extras_require = {
         'django': ['django',
-                   'django-appconf'],
+                   'django-appconf',
+                   'django-dbsettings'],
     },
     include_package_data=True,
 )
