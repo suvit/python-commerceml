@@ -4,15 +4,14 @@ from dbsettings import values
 
 
 class Exchange1c(dbsettings.Group):
-    export_index = values.IntegerValue(u'1c Экспорт: Номер последнего документа', default=0)
-    exported = values.DateTimeValue(u'1с Экспорт: Дата последнего экспорта',
+    export_index = values.IntegerValue(u'1c Р­РєСЃРїРѕСЂС‚: РќРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµРіРѕ РґРѕРєСѓРјРµРЅС‚Р°', default=0)
+    exported = values.DateTimeValue(u'1СЃ Р­РєСЃРїРѕСЂС‚: Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ СЌРєСЃРїРѕСЂС‚Р°',
                                     required=False, default='')
-    exported_new = values.DateTimeValue(u'1с Экспорт: Дата последнего экспорта. новое значение',
+    exported_new = values.DateTimeValue(u'1СЃ Р­РєСЃРїРѕСЂС‚: Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ СЌРєСЃРїРѕСЂС‚Р°. РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ',
                                         required=False, default='')
 
-    import_index = values.IntegerValue(u'1c Импорт: Номер последнего документа', default=0)
-    imported = values.DateTimeValue(u'1с Импорт: Дата последнего импорта',
+    import_index = values.IntegerValue(u'1c РРјРїРѕСЂС‚: РќРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµРіРѕ РґРѕРєСѓРјРµРЅС‚Р°', default=0)
+    imported = values.DateTimeValue(u'1СЃ РРјРїРѕСЂС‚: Р”Р°С‚Р° РїРѕСЃР»РµРґРЅРµРіРѕ РёРјРїРѕСЂС‚Р°',
                                     required=False, default='')
 
-exchange_1c = Exchange1c(u'Обмен с 1с')
-
+exchange_1c = Exchange1c(u'РћР±РјРµРЅ СЃ 1СЃ')
