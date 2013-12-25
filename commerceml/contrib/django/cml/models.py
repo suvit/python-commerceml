@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dbsettings
 from dbsettings import values
 

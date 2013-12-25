@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR

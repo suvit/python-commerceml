@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.dispatch import Signal
 
 requested_catalog_file = Signal(providing_args=["file"])
