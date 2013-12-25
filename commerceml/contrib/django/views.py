@@ -12,17 +12,19 @@ from django.contrib.auth.decorators import permission_required
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
 
+from commerceml.contrib.django.cml.conf import CmlConf
+from commerceml.contrib.django.cml.models import exchange_1c
+from commerceml.contrib.django.http_auth import http_auth
 from commerceml.contrib.django.signals import (requested_catalog_file,
                                                requested_catalog_import,
                                                requested_sale_query,
                                                requested_sale_success,
                                                requested_sale_file)
-from commerceml.contrib.django.cml.conf import CmlConf
-from commerceml.contrib.django.cml.models import exchange_1c
 
 logger = logging.getLogger(__name__)
 
 
+@http_auth
 @permission_required('cml.exchange_1c')
 def dispatcher(request):
     type = request.GET.get('type')
@@ -40,14 +42,14 @@ def dispatcher(request):
 def catalog_checkauth(request):
     session = request.session
     return HttpResponse('%s\n%s\n%s\n' % (RESPONSE_SUCCESS,
-                                        settings.SESSION_COOKIE_NAME,
-                                        session.session_key))
+                                          settings.SESSION_COOKIE_NAME,
+                                          session.session_key))
 
 
 def catalog_init(request):
     result = ('zip=%s\n'
-              'file_limit=%s' % ('yes' if CmlConf.USE_ZIP else 'no',
-                                 CmlConf.FILE_LIMIT))
+              'file_limit=%s\n' % ('yes' if CmlConf.USE_ZIP else 'no',
+                                   CmlConf.FILE_LIMIT))
 
     # increase index to add this index to new files
     exchange_1c.export_index += 1
