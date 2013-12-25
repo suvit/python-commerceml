@@ -8,6 +8,8 @@ from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 
+from django.contrib.auth.decorators import permission_required
+
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
 
 from commerceml.contrib.django.signals import (requested_catalog_file,
@@ -18,10 +20,10 @@ from commerceml.contrib.django.signals import (requested_catalog_file,
 from commerceml.contrib.django.cml.conf import CmlConf
 from commerceml.contrib.django.cml.models import exchange_1c
 
-
 logger = logging.getLogger(__name__)
 
 
+@permission_required('cml.exchange_1c')
 def dispatcher(request):
     type = request.GET.get('type')
     mode = request.GET.get('mode')

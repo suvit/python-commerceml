@@ -16,6 +16,14 @@ python-commerceml
 
         (r'^1c/', include('commerceml.contrib.django.urls')),
 
+Настройки django
+-----------------
+
+`CML_FILE_LIMIT`
+`CML_USE_ZIP`
+
+
+
 
 TODO
 -----------------
@@ -24,6 +32,8 @@ TODO
 * Написать тесты
 * django. создание папки в MEDIA_ROOT по умолчанию
 * django. USE_ZIP == True
-* django. импорт каталога
+* django. FILE_LIMIT > 0
+* django. импорт и экспорт заказов
+* django. экспорт каталога
 * django. basic auth
 * django. lfs. api
