@@ -80,7 +80,7 @@ def import_file(request, signal):
 
     filename = os.path.basename(filename)
     old_name, ext = os.path.splitext(filename)
-    new_filename = '%s_%s.%s' % (old_name, exchange_1c.export_index, ext)
+    new_filename = '%s_%s%s' % (old_name, exchange_1c.export_index, ext)
 
     file = SimpleUploadedFile(new_filename, request.read(),
                               content_type='text/xml')
@@ -115,11 +115,11 @@ def catalog_import(request):
 
     filename = os.path.basename(filename)
     old_name, ext = os.path.splitext(filename)
-    filename = '%s_%s.%s' % (old_name, exchange_1c.export_index, ext)
+    new_filename = '%s_%s%s' % (old_name, exchange_1c.export_index, ext)
 
     data = {'request': request,
             'filename': filename,
-            'new_filename': filename,
+            'new_filename': new_filename,
             'filepath': os.path.join(CmlConf.IMPORT_FOLDER, new_filename)}
 
     requested_catalog_import.send(data)
