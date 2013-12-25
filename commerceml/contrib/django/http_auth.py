@@ -41,7 +41,7 @@ def _http_auth_helper(request):
     if not getattr(settings, 'FORCE_HTTP_AUTH', False):
         # If we don't mind if django's session auth is used, see if the
         # user is already logged in, and use that user.
-        if request.user:
+        if request.user.is_authenticated():
             return None
 
     # At this point, the user is either not logged in, or must log in using

@@ -24,8 +24,8 @@ from commerceml.contrib.django.signals import (requested_catalog_file,
 logger = logging.getLogger(__name__)
 
 
-@permission_required('cml.exchange_1c')
 @http_auth
+@permission_required('cml.exchange_1c')
 def dispatcher(request):
     type = request.GET.get('type')
     mode = request.GET.get('mode')
