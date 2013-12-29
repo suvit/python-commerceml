@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import datetime
 
 from xml.etree import ElementTree
 
@@ -135,7 +136,9 @@ sale_init = catalog_init
 
 
 def sale_query(request):
-    data = {'request': request}
+    exported_new = datetime.datetime.now()
+    data = {'request': request,
+            'exported_new': exported_new}
 
     requested_sale_query.send(data)
 
@@ -146,8 +149,18 @@ def sale_query(request):
 
 
 def sale_success(request):
-    # log success
-    return HttpResponse(RESPONSE_SUCCESS)
+
+    # fixed exported(commited) to db settings
+    exchange_1c.exported = exchange_1c.exported_new
+
+    data = {'request': request,
+            'exported': exchange_1c.exported}
+    requested_sale_success.send(data)
+
+    if 'response' in data:
+        return data['response']
+    else:
+        return HttpResponse(RESPONSE_SUCCESS)
 
 
 def sale_file(request):
