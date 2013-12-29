@@ -53,7 +53,7 @@ def catalog_init(request):
                                    CmlConf.FILE_LIMIT))
 
     # increase index to add this index to new files
-    exchange_1c.export_index += 1
+    exchange_1c.import_index += 1
 
     return HttpResponse(result)
 
@@ -81,7 +81,7 @@ def import_file(request, signal):
 
     filename = os.path.basename(filename)
     old_name, ext = os.path.splitext(filename)
-    new_filename = '%s_%s%s' % (old_name, exchange_1c.export_index, ext)
+    new_filename = '%s_%s%s' % (old_name, exchange_1c.import_index, ext)
 
     file = SimpleUploadedFile(new_filename, request.read(),
                               content_type='text/xml')
@@ -116,7 +116,7 @@ def catalog_import(request):
 
     filename = os.path.basename(filename)
     old_name, ext = os.path.splitext(filename)
-    new_filename = '%s_%s%s' % (old_name, exchange_1c.export_index, ext)
+    new_filename = '%s_%s%s' % (old_name, exchange_1c.import_index, ext)
 
     data = {'request': request,
             'filename': filename,
@@ -124,10 +124,10 @@ def catalog_import(request):
             'filepath': os.path.join(CmlConf.IMPORT_FOLDER, new_filename)}
 
     requested_catalog_import.send(data)
-
     if 'response' in data:
         return data['response']
     else:
+        exchange_1c.imported = datetime.datetime.now()
         return HttpResponse(RESPONSE_SUCCESS)
 
 # Sale views
