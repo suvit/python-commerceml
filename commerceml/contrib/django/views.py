@@ -10,6 +10,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 
 from django.contrib.auth.decorators import permission_required
+from django.views.decorators.csrf import csrf_exempt
 
 from commerceml.conf import RESPONSE_SUCCESS, RESPONSE_ERROR
 
@@ -25,6 +26,7 @@ from commerceml.contrib.django.signals import (requested_catalog_file,
 logger = logging.getLogger(__name__)
 
 
+@csrf_exempt
 @http_auth
 @permission_required('cml.exchange_1c')
 def dispatcher(request):
