@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -
 import os
+from django.conf import settings
 
 RESPONSE_SUCCESS = 'success'
 RESPONSE_PROGRESS = 'progress'
@@ -17,5 +18,4 @@ Property = 'path.to.property'
 MAX_EXEC_TIME = 60
 USE_ZIP = False
 FILE_LIMIT = 0
-FILE_ROOT = os.path.join('files', 'cml')
-
+FILE_ROOT = os.path.join(settings.MEDIA_ROOT, 'cml')
